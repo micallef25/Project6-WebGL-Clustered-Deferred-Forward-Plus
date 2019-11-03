@@ -42,13 +42,10 @@ The forward+ technique invovles culling lights or a "cluster/tiling" approach an
 ```C
 //Buffers:
 Buffer display
-Buffer GBuffer 
 Buffer tileArray
 
 //Shaders:
 Shader manyLightShader
-Shader writeShadingAttributes
-CompShader lightInTile
 
 //Light culling
 for tile in tileArray
@@ -56,38 +53,17 @@ for tile in tileArray
       if lightInTile(tile, light)
           tile += light
       
-//Shading
-display = manyLightShader(GBuffer, tileArray)
+for tile in scene
+        display += simpleShader(tile, light)
 
 ```
 
 
-### Basic Deferred
+### Deferred
 
 
 The idea behind deferred shading is that we perform all visibility and material fetching in one shader program, store the result in a buffer, and then we defer lighting and shading to another shader that takes as an input that buffer. Our "buffer" we store into is commonly known as a "Gbuffer". The contents and size of a Gbuffer will typically range. As some designers implement Gbuffers based on the task at hand or or clever the designer is at packing data. The basic pseudo code for Deferred shading is below.
-
-```C
-//Buffers:
-Buffer display
-Buffer GBuffer 
-
-//Shaders:
-Shader simpleShader
-Shader writeShadingAttributes
-
-//Visibility & materials
-for mesh in scene
-    if mesh.depth < GBuffer.depth
-       GBuffer = writeShadingAttributes(mesh)
-
-//Shading & lighting - Multi-pass
-for light in scene
-    display += simpleShader(GBuffer, light)
-
-```
-
-### With light culling 
+In our deferred method we also use the tiling approach.
 
 ```C
 //Buffers:
@@ -114,6 +90,7 @@ for tile in tileArray
 //Shading
 display = manyLightShader(GBuffer, tileArray)
 ```
+
 
 ### Effects
 
@@ -128,6 +105,8 @@ There was no performance impact between the two. The blinnphong model vs the lam
 In the lambert shading 
 
 ![](img/lambert.PNG)
+
+## BlinnPhong
 
 Notice how with the blinnphong model you can almost hear da rudes sandstorm playing in the background... 
 
@@ -151,17 +130,31 @@ Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddad
 
 ![](img/blinnphong.PNG)
 
-## BlinnPhong
-
 
 
 ### Optimizations
 
 ## packing our Gbuffer
 
+
+Reducing the number of g-buffers helps make deferred shading faster which can be done by compactly storing data in them. Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored in 24bit floats instead of 32 bits, are just some of the ways to achieve this compression.
+
+This project implemented the following layout for the 2 g-buffers used:
+
+R-Channel G-Channel B-Channel A-Channel
+Position.x  Position.y  Position.z  Normal.x
+Color.x Color.y Color.z Normal.y
+
+2 Component Normals
+
+We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space for all the fragments that we can see. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
+
 ### Debilitating Bugs aka bloopers
 
+below is what happens when your normals are off by a bit ):.
+In this scene I have 250 lights but it still quite dark.
 
+![](img/helpme.PNG)
 
 Compare your implementations of Forward+ and Clustered shading and analyze their differences.
   - Is one of them faster?
