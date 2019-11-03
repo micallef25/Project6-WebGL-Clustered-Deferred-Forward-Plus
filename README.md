@@ -123,17 +123,35 @@ Our basic shader comes with the typical lambert style shading. Upon this I added
 
 There was no performance impact between the two. The blinnphong model vs the lambert model in my code was only a few extra lines of computational code which is likely masked away.
 
-##Lambert
+## Lambert
 
 In the lambert shading 
 
 ![](img/lambert.PNG)
 
+Notice how with the blinnphong model you can almost hear da rudes sandstorm playing in the background... 
 
+https://www.youtube.com/watch?v=y6120QOlsfU
+
+https://genius.com/1780629
+
+```
+Duuuuuuuuuuuuuuuuuuuuuuun
+Dun dun dun dun dun dun dun dun dun dun dun dundun dun dundundun dun dun dun dun dun dun dundun dundun
+BOOM
+Dundun dundun dundun
+BEEP
+Dun dun dun dun dun
+Dun dun
+BEEP BEEP BEEP BEEP
+BEEEP BEEP BEEP BEEP
+BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BOOM
+Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddadddadaddadadadd dadadadaddaddada
+```
 
 ![](img/blinnphong.PNG)
 
-##BlinnPhong
+## BlinnPhong
 
 
 
