@@ -17,7 +17,7 @@ WebGL Clustered and Forward+ Shading
 - [Effects](#Effects)
     - [Lambert](#Lambert)
     - [BlinnPhong](#BlinnPhong)
-- [Optimization](#Optimization)
+- [Optimizations](#Optimizations)
   - [G-Buffer](#G-Buffer)
 - [Debilitating Bugs/Bloopers](#Debilitating-Bugs-AKA-Bloopers-In-CIS565-World)
 - [Bugs](#Bugs)
@@ -149,7 +149,7 @@ Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddad
 
 # Optimizations
 
-## packing our Gbuffer
+## G-Buffer
 
 
 Reducing the number of g-buffers helps make deferred shading faster which can be done by compactly storing data in them. Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored in 24bit floats instead of 32 bits, are just some of the ways to achieve this compression.
