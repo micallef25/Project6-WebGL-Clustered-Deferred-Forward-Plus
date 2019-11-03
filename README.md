@@ -12,13 +12,13 @@ WebGL Clustered and Forward+ Shading
 - [Demo Video](#Demo-Video)
 - [Overview](#Overview)
   - [Forward](#Forward)
-  - [Forward+](#Forward+)
+  - [ForwardPlus](#ForwardPlus)
   - [Deferred](#Deferred)
 - [Effects](#Effects)
     - [Lambert](#Lambert)
     - [BlinnPhong](#BlinnPhong)
 - [Optimizations](#Optimizations)
-  - [G-Buffer](#G-Buffer)
+  - [GBuffer](#GBuffer)
 - [Debilitating Bugs/Bloopers](#Debilitating-Bugs-AKA-Bloopers-In-CIS565-World)
 - [Bugs](#Bugs)
 - [Resources](#Resources)
@@ -52,7 +52,7 @@ for mesh in scene
         display += simpleShader(mesh, light)
 ```
 
-## Forward+
+## ForwardPlus
 
 The forward+ technique invovles culling lights or a "cluster/tiling" approach and then shading. By performing the culling stage we can intellignetly light our scene.
 
@@ -149,7 +149,7 @@ Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddad
 
 # Optimizations
 
-## G-Buffer
+## GBuffer
 
 
 Reducing the number of g-buffers helps make deferred shading faster which can be done by compactly storing data in them. Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored in 24bit floats instead of 32 bits, are just some of the ways to achieve this compression.
