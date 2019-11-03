@@ -30,7 +30,9 @@ WebGL Clustered and Forward+ Shading
 
 # Demo Video
 
-[![](img/video.png)](TODO)
+[![](img/demo.gif)]
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/8neAfmGIm5U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Overview
 
@@ -111,19 +113,17 @@ display = manyLightShader(GBuffer, tileArray)
 
 # Effects
 
-Our basic shader comes with the typical lambert style shading. Upon this I added the blinn phong shader to make our dungeon look like a sick trap house.
+Our provided shader comes with the typical lambert style shading. Upon this I added the blinn phong shader to make our dungeon look like a sick trap house.
 
-There was no performance impact between the two. The blinnphong model vs the lambert model in my code was only a few extra lines of computational code which is likely masked away.
+There was no performance impact between the two. The blinnphong model vs the lambert model in my code was only a few extra lines of computational code which GPU's are quite good at.
 
 ## Lambert
-
-In the lambert shading 
 
 ![](img/lambert.PNG)
 
 ## BlinnPhong
 
-Notice how with the blinnphong model you can almost hear da rudes sandstorm playing in the background... 
+![](img/blinnphong.PNG)
 
 https://www.youtube.com/watch?v=y6120QOlsfU
 
@@ -143,18 +143,17 @@ BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BOOM
 Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddadddadaddadadadd dadadadaddaddada
 ```
 
-![](img/blinnphong.PNG)
-
-
 
 # Optimizations
 
 ## GBuffer
 
 
-Reducing the number of g-buffers helps make deferred shading faster which can be done by compactly storing data in them. Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored in 24bit floats instead of 32 bits, are just some of the ways to achieve this compression.
+Reducing the number of g-buffer channels helps make deferred shading faster which can be done by compactly storing data in them. 
 
-This project implemented the following layout for the 2 g-buffers used:
+Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored as fixed point instead of floats. These are some examples of how one could intellignetly pack their data.
+
+This project implemented the following layout for 2 g-buffer channels used:
 
 
 | R-Channel       | G-Channel     | B-Channel      | A-Channel       |
@@ -162,10 +161,9 @@ This project implemented the following layout for the 2 g-buffers used:
 | position_x      | position_y    | position_z     | normal_x        |
 | color_x         | color_y       |   color_z      | normal_y        |
 
+Why this packing.
 
-2 Component Normals
-
-We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space for all the fragments that we can see. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
+We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
 
 # Debilitating Bugs AKA Bloopers In CIS565 World
 
@@ -177,34 +175,9 @@ In this scene I have 250 lights but it still quite dark.
 
 # Bugs
 
-All programs are filled with bugs. On one hand atleast mine is known? When the number of lights increases > 300. my AABB boxes seem to be appearing every where. Could never unfortunately fix in time. Still renders fast doe. 
+When the number of lights increases > 300. My AABB boxes seem to be appearing every where. Could never unfortunately fix in time. Still renders fast doe. 
 
 ![](img/blocky.PNG)
-
-
-Compare your implementations of Forward+ and Clustered shading and analyze their differences.
-  - Is one of them faster?
-  - Is one of them better at certain types of workloads?
-  - What are the benefits and tradeoffs of using one over the other?
-  - For any differences in performance, briefly explain what may be causing the difference.
-
-For each new effect feature (required or extra), please provide the following analysis:
-  - Concise overview write-up of the feature.
-  - Performance change due to adding the feature.
-  - If applicable, how do parameters (such as number of lights, etc.) affect performance? Show data with simple graphs.
-    - Show timing in milliseconds, not FPS.
-  - If you did something to accelerate the feature, what did you do and why?
-  - How might this feature be optimized beyond your current implementation?
-
-For each performance feature (required or extra), please provide:
-  - Concise overview write-up of the feature.
-  - Detailed performance improvement analysis of adding the feature
-    - What is the best case scenario for your performance improvement? What is the worst? Explain briefly.
-    - Are there tradeoffs to this performance feature? Explain briefly.
-    - How do parameters (such as number of lights, tile size, etc.) affect performance? Show data with graphs.
-      - Show timing in milliseconds, not FPS.
-    - Show debug views when possible.
-      - If the debug view correlates with performance, explain how.
 
 
 # Resources
