@@ -35,6 +35,33 @@ for mesh in scene
         display += simpleShader(mesh, light)
 ```
 
+### Forward+
+
+The forward+ technique invovles culling lights or a "cluster/tiling" approach and then shading. By performing the culling stage we can intellignetly light our scene.
+
+```C
+//Buffers:
+Buffer display
+Buffer GBuffer 
+Buffer tileArray
+
+//Shaders:
+Shader manyLightShader
+Shader writeShadingAttributes
+CompShader lightInTile
+
+//Light culling
+for tile in tileArray
+   for light in scene
+      if lightInTile(tile, light)
+          tile += light
+      
+//Shading
+display = manyLightShader(GBuffer, tileArray)
+
+```
+
+
 ### Basic Deferred
 
 
@@ -91,6 +118,24 @@ display = manyLightShader(GBuffer, tileArray)
 ### Effects
 
 ## Lambert Vs Blinn Phong.
+
+Our basic shader comes with the typical lambert style shading. Upon this I added the blinn phong shader to make our dungeon look like a sick trap house.
+
+There was no performance impact between the two. The blinnphong model vs the lambert model in my code was only a few extra lines of computational code which is likely masked away.
+
+##Lambert
+
+In the lambert shading 
+
+![](img/lambert.PNG)
+
+
+
+![](img/blinnphong.PNG)
+
+##BlinnPhong
+
+
 
 ### Optimizations
 
