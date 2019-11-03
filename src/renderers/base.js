@@ -52,6 +52,8 @@ export default class BaseRenderer {
     var lightRadius;
     var clusterLightCount;
 
+
+    // this is hwere all hope is either lost or gained
     for (let i=0; i<numLights; i++)
     {
       lightRadius = scene.lights[i].radius;
@@ -136,12 +138,12 @@ export default class BaseRenderer {
             {
               this._clusterTexture.buffer[lightCountIndex] = clusterLightCount+1;
 
-              let texel = Math.floor((clusterLightCount+1)/4);
-              let texelIndex = this._clusterTexture.bufferIndex(clusterID, texel);
-              let texelSubIndex = (clusterLightCount+1) - texel*4; //texel%4;
+              let t = Math.floor((clusterLightCount+1)/4);
+              let tIndex = this._clusterTexture.bufferIndex(clusterID, t);
+              let tSubIndex = (clusterLightCount+1) - t*4;
 
               // Update the light index for the particular cluster in the light buffer
-              this._clusterTexture.buffer[texelIndex + texelSubIndex] = i;
+              this._clusterTexture.buffer[tIndex + tSubIndex] = i;
             }
           }//x
         }//y

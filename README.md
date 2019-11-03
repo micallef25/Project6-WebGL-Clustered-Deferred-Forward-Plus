@@ -21,6 +21,7 @@ WebGL Clustered and Forward+ Shading
   - [GBuffer](#GBuffer)
 - [Debilitating Bugs/Bloopers](#Debilitating-Bugs-AKA-Bloopers-In-CIS565-World)
 - [Bugs](#Bugs)
+- [GUI](#GUI)
 - [Resources](#Resources)
 - [Credits](#Credits)
 
@@ -32,14 +33,14 @@ WebGL Clustered and Forward+ Shading
 
 ![](img/demo.gif)
 
-* click image for full video *
+* video shows 200 lights.
 
 [![Watch the video](https://img.youtube.com/vi/8neAfmGIm5U/0.jpg)](https://youtu.be/8neAfmGIm5U)
 
 
 # Overview
 
-In its basic form, forward shading is a method of rendering scenes by linearly marching forward along the GPU pipeline. For each mesh and light combination we issue a single draw call additively blending the results until the image has been fully assembled. The pseduo code below helps depict the algorithm at a high level.
+In this repo we show forward, forward+ and deferred rendering. The forward+ and deferred shaders include a light culling or binning phase where we first bin lights into AABB's or are often referred to as "clusters" or "tiles". We can then ignore parts of the scene that do not have any. 
 
 ## Forward
 
@@ -59,7 +60,7 @@ for mesh in scene
 
 ## ForwardPlus
 
-The forward+ technique invovles culling lights or a "cluster/tiling" approach and then shading. By performing the culling stage we can intellignetly light our scene.
+The forward+ technique invovles culling lights or a "cluster/tiling" approach and then shading. By performing the culling stage we can intelligently light our scene.
 
 ```C
 //Buffers:
@@ -83,9 +84,7 @@ for tile in scene
 
 ## Deferred
 
-
-The idea behind deferred shading is that we perform all visibility and material fetching in one shader program, store the result in a buffer, and then we defer lighting and shading to another shader that takes as an input that buffer. Our "buffer" we store into is commonly known as a "Gbuffer". The contents and size of a Gbuffer will typically range. As some designers implement Gbuffers based on the task at hand or or clever the designer is at packing data. The basic pseudo code for Deferred shading is below.
-In our deferred method we also use the tiling approach.
+The idea behind deferred shading is that we perform all visibility and material fetching in one shader program, store the result in a buffer, and then we defer lighting and shading to another shader that takes as an input that buffer. Our "buffer" we store into is commonly known as a "Gbuffer". The contents and size of a Gbuffer will typically range. As some designers implement Gbuffers based on the task at hand or how clever the designer is at packing data. The basic pseudo code for Deferred shading is below. In our deferred method we also use the tiling approach.
 
 ```C
 //Buffers:
@@ -120,6 +119,8 @@ Our provided shader comes with the typical lambert style shading. Upon this I ad
 
 There was no performance impact between the two. The blinnphong model vs the lambert model in my code was only a few extra lines of computational code which GPU's are quite good at.
 
+there are two constant variables that can be manipulated for shininess and specular color. I have them set to purple in the image. We can tune them on the fly for your favorite color!
+
 ## Lambert
 
 ![](img/lambert.PNG)
@@ -128,9 +129,7 @@ There was no performance impact between the two. The blinnphong model vs the lam
 
 ![](img/blinnphong.PNG)
 
-https://www.youtube.com/watch?v=y6120QOlsfU
-
-https://genius.com/1780629
+The blinn phong image is where I imagine DaRude first played his famous sandstorm song. 
 
 ```
 Duuuuuuuuuuuuuuuuuuuuuuun
@@ -146,6 +145,9 @@ BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BEEP BOOM
 Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddadddadaddadadadd dadadadaddaddada
 ```
 
+https://www.youtube.com/watch?v=y6120QOlsfU
+
+https://genius.com/1780629
 
 # Optimizations
 
@@ -154,7 +156,7 @@ Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddad
 
 Reducing the number of g-buffer channels helps make deferred shading faster which can be done by compactly storing data in them. 
 
-Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored as fixed point instead of floats. These are some examples of how one could intellignetly pack their data.
+Colors often dont need the alpha component, normals can be reconstructed simply from 2 of their components, data can be stored as fixed point instead of floats. These are some examples of how one could intellignetly pack their data. Packing data increases speed because if we pack well we can have less memory reads which is typically the bottleneck in most applications.
 
 This project implemented the following layout for 2 g-buffer channels used:
 
@@ -167,6 +169,10 @@ This project implemented the following layout for 2 g-buffer channels used:
 Why this packing.
 
 We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
+
+# GUI 
+
+attempts were made at adding num lights and max lights per cluster in the GUI because it was annoying changing them in the code. But things kept breaking and I decided I should just finish the project.
 
 # Debilitating Bugs AKA Bloopers In CIS565 World
 

@@ -30,8 +30,8 @@ export default function(params) {
   const int maxLightsPerCluster = int(${params.maxLightsPerCluster});
   const int numTexelsInColumn = int(ceil(float(${params.maxLightsPerCluster}+1) * 0.25)); 
   
-  const vec3 specColor = vec3(0.45, 0.1, 0.75);
-  const float shininess = 300.0;
+  const vec3 specColor = vec3(0.0, 0.85, 1);
+  const float shininess = 600.0;
   
   vec3 applyNormalMap(vec3 geomnor, vec3 normap) 
   {
@@ -123,6 +123,7 @@ export default function(params) {
     
     for (int i = 0; i < ${params.numLights}; ++i) 
     {
+      // cluster optimizations
       if(i >= clusterNumLights)
       {
         break;
@@ -135,7 +136,7 @@ export default function(params) {
       float lightIntensity = cubicGaussian(2.0 * lightDistance / light.radius);
       float lambertTerm = max(dot(L, normal), 0.0);
       
-      // basic lambert shading like in project 3
+      // basic lambert shading given
       if(u_shaderMode == 0)
       {
         fragColor += albedo * lambertTerm * light.color * vec3(lightIntensity);

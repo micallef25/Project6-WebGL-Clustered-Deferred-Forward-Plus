@@ -143,7 +143,7 @@ export default class ClusteredRenderer extends BaseRenderer {
     scene.draw(this._progCopy);
     
     // Update the buffer used to populate the texture packed with light data
-    for (let i = 0; i < NUM_LIGHTS; ++i) {
+    for (let i = 0; i < this._numLights; ++i) {
       this._lightTexture.buffer[this._lightTexture.bufferIndex(i, 0) + 0] = scene.lights[i].position[0];
       this._lightTexture.buffer[this._lightTexture.bufferIndex(i, 0) + 1] = scene.lights[i].position[1];
       this._lightTexture.buffer[this._lightTexture.bufferIndex(i, 0) + 2] = scene.lights[i].position[2];
@@ -157,7 +157,7 @@ export default class ClusteredRenderer extends BaseRenderer {
     this._lightTexture.update();
 
     // Update the clusters for the frame
-    this.updateClusters(camera, this._viewMatrix, scene, NUM_LIGHTS);
+    this.updateClusters(camera, this._viewMatrix, scene, this._numLights);
 
     // Bind the default null framebuffer which is the screen
     gl.bindFramebuffer(gl.FRAMEBUFFER, null);
@@ -183,13 +183,13 @@ export default class ClusteredRenderer extends BaseRenderer {
     gl.uniform1i(this._progShade.u_clusterbuffer, 3);
 
     // TODO: Bind any other shader inputs
-    // Upload the view matrix
+    // upload all my stuff similar to forward plus
     gl.uniformMatrix4fv(this._progShade.u_viewMatrix, false, this._viewMatrix);
     gl.uniformMatrix4fv(this._progShade.u_inverseViewMatrix, false, this._inverseViewMatrix);
-    //upload the screen dimensions
+
     gl.uniform1f (this._progShade.u_screenWidth, canvas.width);
     gl.uniform1f (this._progShade.u_screenHeight, canvas.height);
-    //upload z_stride -- this is constant
+
     gl.uniform1f (this._progShade.u_zStride, this.zStride);
     gl.uniform1f (this._progShade.u_camNear, camera.near);
 

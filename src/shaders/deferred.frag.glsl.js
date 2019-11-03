@@ -88,7 +88,7 @@ export default function(params) {
   }
   void main() 
   {
-    // extract data from g buffers and do lighting
+    // extract data from g buffers and do lighting this is pretty much the only difference
     vec4 gb0 = texture2D(u_gbuffers[0], v_uv);
     vec4 gb1 = texture2D(u_gbuffers[1], v_uv);
     
@@ -138,7 +138,7 @@ export default function(params) {
       float lightIntensity = cubicGaussian(2.0 * lightDistance / light.radius);
       float lambertTerm = max(dot(L, normal), 0.0);
       
-      // basic lambert shading like in project 3
+      // given lambert
       if(u_shaderMode == 0)
       {
         fragColor += albedo * lambertTerm * light.color * vec3(lightIntensity);

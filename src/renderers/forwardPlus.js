@@ -8,8 +8,8 @@ import TextureBuffer from './textureBuffer';
 import BaseRenderer from './base';
 
 export default class ForwardPlusRenderer extends BaseRenderer {
-  constructor(xSlices, ySlices, zSlices, camera, _maxLightsPerClusterPassedIn, _shaderType) {
-    super(xSlices, ySlices, zSlices, camera, _maxLightsPerClusterPassedIn);
+  constructor(xSlices, ySlices, zSlices, camera, _maxLightsPerCluster, _shaderType,_numlights) {
+    super(xSlices, ySlices, zSlices, camera, _maxLightsPerCluster);
 
     // Create a texture to store light data
     this._lightTexture = new TextureBuffer(NUM_LIGHTS, 8);
@@ -19,7 +19,7 @@ export default class ForwardPlusRenderer extends BaseRenderer {
       numXSlices: xSlices,
       numYSlices: ySlices,
       numZSlices: zSlices,
-      maxLightsPerCluster: _maxLightsPerClusterPassedIn
+      maxLightsPerCluster: _maxLightsPerCluster
     }), {
       uniforms: ['u_viewProjectionMatrix', 'u_viewMatrix', 
                  'u_screenHeight', 'u_screenWidth', 'u_zStride', 'u_camNear',
@@ -45,7 +45,7 @@ export default class ForwardPlusRenderer extends BaseRenderer {
     this.updateClusters(camera, this._viewMatrix, scene, NUM_LIGHTS);
     
     // Update the buffer used to populate the texture packed with light data
-    for (let i = 0; i < this._numLights; ++i) {
+    for (let i = 0; i < NUM_LIGHTS; ++i) {
       this._lightTexture.buffer[this._lightTexture.bufferIndex(i, 0) + 0] = scene.lights[i].position[0];
       this._lightTexture.buffer[this._lightTexture.bufferIndex(i, 0) + 1] = scene.lights[i].position[1];
       this._lightTexture.buffer[this._lightTexture.bufferIndex(i, 0) + 2] = scene.lights[i].position[2];
@@ -84,12 +84,12 @@ export default class ForwardPlusRenderer extends BaseRenderer {
     gl.uniform1i(this._shaderProgram.u_clusterbuffer, 3);
 
     // TODO: Bind any other shader inputs
-        // Upload the view matrix
+    // 
     gl.uniformMatrix4fv(this._shaderProgram.u_viewMatrix, false, this._viewMatrix);
-    //upload the screen dimensions
+    //
     gl.uniform1f (this._shaderProgram.u_screenWidth, canvas.width);
     gl.uniform1f (this._shaderProgram.u_screenHeight, canvas.height);
-    //upload z_stride -- this is constant
+    //u
     gl.uniform1f (this._shaderProgram.u_zStride, this.zStride);
     gl.uniform1f (this._shaderProgram.u_camNear, camera.near);
 
