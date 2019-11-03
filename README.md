@@ -177,9 +177,9 @@ In this scene I have 250 lights but it still quite dark.
 
 # Bugs
 
-All programs are filled with bugs. On one hand atleast mine is known? When the number of lights increases > 300. my AABB boxes seem to be appearing every where. Could never unfortunately fix in time.
+All programs are filled with bugs. On one hand atleast mine is known? When the number of lights increases > 300. my AABB boxes seem to be appearing every where. Could never unfortunately fix in time. Still renders fast doe. 
 
-
+![](img/blocky.PNG)
 
 
 Compare your implementations of Forward+ and Clustered shading and analyze their differences.
