@@ -3,9 +3,27 @@ WebGL Clustered and Forward+ Shading
 
 **University of Pennsylvania, CIS 565: GPU Programming and Architecture, Project 5**
 
-* (TODO) YOUR NAME HERE
-* Tested on: (TODO) **Google Chrome 222.2** on
-  Windows 22, i7-2222 @ 2.22GHz 22GB, GTX 222 222MB (Moore 2222 Lab)
+* Eric Micallef
+  * https://www.linkedin.com/in/eric-micallef-99291714b/
+  
+* Tested on: Windows 10, i5, Nvidia GTX1660 (Personal)
+
+- [Live Online](#Repo-Contents)
+- [Demo Video](#Advanced-Encryption-Schema-Overview)
+- [Overview](#Cipher)
+  - [Forward](#Mix-Columns)
+  - [Forward+](#Shift-Rows)
+  - [Deferred](#Sub-Bytes)
+- [Effects](#Add-Round-Key)
+    - [Lambert](#Electronic-Code-Book-Mode)
+    - [BlinnPhong](#Counter-Mode)
+- [Optimization](#Algorithm-Overview)
+  - [G-Buffer](#Block-Level)
+  - [Byte Level](#Byte-Level)
+- [Debilitating Bugs/Bloopers](#Debilitating-Bugs-AKA-Bloopers-In-CIS565-World)
+- [Bugs](#Bugs)
+- [Resources](#Resources)
+- [Credits](#Credits)
 
 ### Live Online
 
@@ -152,12 +170,20 @@ This project implemented the following layout for the 2 g-buffers used:
 
 We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space for all the fragments that we can see. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
 
-### Debilitating Bugs aka bloopers
+# Debilitating Bugs AKA Bloopers In CIS565 World
 
 below is what happens when your normals are off by a bit ):.
 In this scene I have 250 lights but it still quite dark.
 
 ![](img/helpme.PNG)
+
+
+# Bugs
+
+All programs are filled with bugs. On one hand atleast mine is known? When the number of lights increases > 300. my AABB boxes seem to be appearing every where. Could never unfortunately fix in time.
+
+
+
 
 Compare your implementations of Forward+ and Clustered shading and analyze their differences.
   - Is one of them faster?
@@ -184,12 +210,12 @@ For each performance feature (required or extra), please provide:
       - If the debug view correlates with performance, explain how.
 
 
-### References
+# Resources
 
 explanation of forward plus
 https://takahiroharada.files.wordpress.com/2015/04/forward_plus.pdf
 
-helping uncover a culling bug
+helping fix a culling bug
 https://www.gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf
 
 for helping me understand what I am even supposed to be doing. Also for recreation of readme overviews.
@@ -204,7 +230,7 @@ https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model
 for world view matrices, blinn phong and alot of other concepts used for basic shading
 https://github.com/micallef25/Project5-DirectX-Procedural-Raytracing
 
-### Credits
+# Credits
 
 * [Three.js](https://github.com/mrdoob/three.js) by [@mrdoob](https://github.com/mrdoob) and contributors
 * [stats.js](https://github.com/mrdoob/stats.js) by [@mrdoob](https://github.com/mrdoob) and contributors
