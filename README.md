@@ -8,38 +8,37 @@ WebGL Clustered and Forward+ Shading
   
 * Tested on: Windows 10, i5, Nvidia GTX1660 (Personal)
 
-- [Live Online](#Repo-Contents)
-- [Demo Video](#Advanced-Encryption-Schema-Overview)
-- [Overview](#Cipher)
-  - [Forward](#Mix-Columns)
-  - [Forward+](#Shift-Rows)
-  - [Deferred](#Sub-Bytes)
-- [Effects](#Add-Round-Key)
-    - [Lambert](#Electronic-Code-Book-Mode)
-    - [BlinnPhong](#Counter-Mode)
-- [Optimization](#Algorithm-Overview)
-  - [G-Buffer](#Block-Level)
-  - [Byte Level](#Byte-Level)
+- [Live Online](#Live-Online)
+- [Demo Video](#Demo-Video)
+- [Overview](#Overview)
+  - [Forward](#Forward)
+  - [Forward+](#Forward+)
+  - [Deferred](#Deferred)
+- [Effects](#Effects)
+    - [Lambert](#Lambert)
+    - [BlinnPhong](#BlinnPhong)
+- [Optimization](#Optimization)
+  - [G-Buffer](#G-Buffer)
 - [Debilitating Bugs/Bloopers](#Debilitating-Bugs-AKA-Bloopers-In-CIS565-World)
 - [Bugs](#Bugs)
 - [Resources](#Resources)
 - [Credits](#Credits)
 
-### Live Online
+# Live Online
 
 [![](img/thumb.png)](http://TODO.github.io/Project5B-WebGL-Deferred-Shading)
 
-### Demo Video/GIF
+# Demo Video
 
 [![](img/video.png)](TODO)
 
-
-
-### Forward Vs Forward+ vs Clustered
+# Overview
 
 In its basic form, forward shading is a method of rendering scenes by linearly marching forward along the GPU pipeline. For each mesh and light combination we issue a single draw call additively blending the results until the image has been fully assembled. The pseduo code below helps depict the algorithm at a high level.
 
-### Basic Forward Pass
+## Forward
+
+In its basic form, forward shading is a method of rendering scenes by linearly marching forward along the GPU pipeline. For each mesh and light combination we issue a single draw call additively blending the results until the image has been fully assembled. The pseduo code below helps depict the algorithm at a high level.
 
 ```C
 //Shaders:
@@ -53,7 +52,7 @@ for mesh in scene
         display += simpleShader(mesh, light)
 ```
 
-### Forward+
+## Forward+
 
 The forward+ technique invovles culling lights or a "cluster/tiling" approach and then shading. By performing the culling stage we can intellignetly light our scene.
 
@@ -77,7 +76,7 @@ for tile in scene
 ```
 
 
-### Deferred
+## Deferred
 
 
 The idea behind deferred shading is that we perform all visibility and material fetching in one shader program, store the result in a buffer, and then we defer lighting and shading to another shader that takes as an input that buffer. Our "buffer" we store into is commonly known as a "Gbuffer". The contents and size of a Gbuffer will typically range. As some designers implement Gbuffers based on the task at hand or or clever the designer is at packing data. The basic pseudo code for Deferred shading is below.
@@ -110,9 +109,7 @@ display = manyLightShader(GBuffer, tileArray)
 ```
 
 
-### Effects
-
-## Lambert Vs Blinn Phong.
+# Effects
 
 Our basic shader comes with the typical lambert style shading. Upon this I added the blinn phong shader to make our dungeon look like a sick trap house.
 
@@ -150,7 +147,7 @@ Daddaddadadsadadadadadadadadadaddadadadadadaddadadaddadadadadadadadadadadadaddad
 
 
 
-### Optimizations
+# Optimizations
 
 ## packing our Gbuffer
 
