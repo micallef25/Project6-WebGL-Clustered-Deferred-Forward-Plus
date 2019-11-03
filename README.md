@@ -141,9 +141,12 @@ Reducing the number of g-buffers helps make deferred shading faster which can be
 
 This project implemented the following layout for the 2 g-buffers used:
 
-R-Channel G-Channel B-Channel A-Channel
-Position.x  Position.y  Position.z  Normal.x
-Color.x Color.y Color.z Normal.y
+
+| R-Channel       | G-Channel     | B-Channel      | A-Channel       |
+| :-------------: |:-------------:| :-------------:| :-------------: | 
+| position_x      | position_y    | position_z     | normal_x        |
+| color_x         | color_y       |   color_z      | normal_y        |
+
 
 2 Component Normals
 
@@ -183,10 +186,23 @@ For each performance feature (required or extra), please provide:
 
 ### References
 
+explanation of forward plus
 https://takahiroharada.files.wordpress.com/2015/04/forward_plus.pdf
+
+helping uncover a culling bug
 https://www.gamedevs.org/uploads/fast-extraction-viewing-frustum-planes-from-world-view-projection-matrix.pdf
+
+for helping me understand what I am even supposed to be doing. Also for recreation of readme overviews.
 http://www.aortiz.me/2018/12/21/CG.html
+
+helping with normals
 https://www.gamasutra.com/blogs/RobertBasler/20131122/205462/Three_Normal_Mapping_Techniques_Explained_For_the_Mathematically_Uninclined.php?print=1
+
+blinn phong
+https://en.wikipedia.org/wiki/Blinn%E2%80%93Phong_reflection_model
+
+for world view matrices, blinn phong and alot of other concepts used for basic shading
+https://github.com/micallef25/Project5-DirectX-Procedural-Raytracing
 
 ### Credits
 
