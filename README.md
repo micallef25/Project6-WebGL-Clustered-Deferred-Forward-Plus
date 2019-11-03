@@ -30,7 +30,9 @@ WebGL Clustered and Forward+ Shading
 
 # Demo Video
 
-[![](img/demo.gif)]
+![](img/demo.gif)
+
+[![Watch the video](https://img.youtube.com/vi/8neAfmGIm5U/0.jpg)](https://youtu.be/8neAfmGIm5U)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/8neAfmGIm5U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
