@@ -166,7 +166,7 @@ This project implemented the following layout for 2 g-buffer channels used:
 | position_x      | position_y    | position_z     | normal_x        |
 | color_x         | color_y       |   color_z      | normal_y        |
 
-Why this packing.
+Why this packing?
 
 We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
 
