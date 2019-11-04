@@ -40,19 +40,21 @@ WebGL Clustered and Forward+ Shading
 
 # Overview
 
-In this repo we show forward, forward+ and deferred rendering. The forward+ and deferred shaders include a light culling or binning phase where we first bin lights into AABB's or are often referred to as "clusters" or "tiles". We can then ignore parts of the scene that do not have any. 
+In this repo we show forward, forward+ and deferred rendering. The forward+ and deferred shaders include a light culling or binning phase where we first bin lights into AABB's or are often referred to as "clusters" or "tiles".
 
-Advantages of Deferred vs Forward+
+### Advantages of Deferred vs Forward+
 
 The advantage with the deferred shading technique compared to forward rendering is that the expensive lighting calculations are only computed once per light per covered pixel.
 
-Disadvantages of Deferred vs Forward+
+### Disadvantages of Deferred vs Forward+
 
 One of the disadvantage of using deferred shading is that only opaque objects can be rasterized into the G-buffers. The reason for this is that multiple transparent objects may cover the same screen pixels but it is only possible to store a single value per pixel in the G-buffers. In the lighting pass the depth value, surface normal, diffuse and specular colors are sampled for the current screen pixel that is being lit. Since only a single value from each G-buffer is sampled, transparent objects cannot be supported in the lighting pass.
 
 Another disadvantage of deferred shading is that only a single lighting model can be simulated in the lighting pass. This is due to the fact that it is only possible to bind a single pixel shader when rendering the light geometry. 
 
 Forward plus is also easier to integrate into existing pipelines that are forward based. This is because forward+ is an extension of forward.
+
+### Analysis
 
 Below is an analysis of the three methods with varying amount of lights. As you will see the Forward render drops off signifcantly while the forward plus slowly dips. Please note I used FPS and is capped at 60 due to not being able to figure out how to uncap the limit.
 
