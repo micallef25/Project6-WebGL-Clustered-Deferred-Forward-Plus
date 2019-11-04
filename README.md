@@ -27,7 +27,7 @@ WebGL Clustered and Forward+ Shading
 
 # Live Online
 
-npm run build is hanging so can not add at this time. 
+[![](img/numlights.png)](http://micallef25.github.io/Project6-WebGL-Deferred-Shading) 
 
 # Demo Video
 
