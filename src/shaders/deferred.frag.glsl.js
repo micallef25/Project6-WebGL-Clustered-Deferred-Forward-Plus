@@ -77,7 +77,7 @@ export default function(params) {
     }
   }
   
-  vec3 calcCompressedNormal_z(vec2 compressedNormal)
+  vec3 unpackbuffer_z(vec2 compressedNormal)
   {
     //we know that the normal has a magnitude of 1, therefore if we know x and y we can caluculate z
     compressedNormal -= 0.5;
@@ -97,7 +97,7 @@ export default function(params) {
     vec3 albedo = gb1.rgb;
 
     vec2 compressedNormal = vec2(gb0.a, gb1.a);
-    vec3 result = calcCompressedNormal_z(compressedNormal);
+    vec3 result = unpackbuffer_z(compressedNormal);
     vec3 normal = vec3(u_inverseViewMatrix*vec4(result, 0.0));
 
     //
