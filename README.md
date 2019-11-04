@@ -27,7 +27,7 @@ WebGL Clustered and Forward+ Shading
 
 # Live Online
 
-![[Click Me!]](http://micallef25.github.io/Project6-WebGL-Clustered-Deferred-Forward-Plus) 
+![[Click Me]](http://micallef25.github.io/Project6-WebGL-Clustered-Deferred-Forward-Plus) 
 
 # Demo Video
 
