@@ -56,12 +56,12 @@ Forward plus is also easier to integrate into existing pipelines that are forwar
 
 Below is an analysis of the three methods with varying amount of lights. As you will see the Forward render drops off signifcantly while the forward plus slowly dips. Please note I used FPS and is capped at 60 due to not being able to figure out how to uncap the limit.
 
-![](img/numlights.PNG)
+![](img/numlights.png)
 
 
 Below is another graph depicting how varying the amount of lights allowed in a cluster effects the performance. As this increases we see both our deferred and forward+ reduce which is sensical. This experiment was done fixed at 3000 lights and varying the cluster lights.
 
-![](img/maxclusters.PNG) 
+![](img/maxclusters.png) 
 
 
 ## Forward
