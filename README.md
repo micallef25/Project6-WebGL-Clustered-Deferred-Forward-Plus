@@ -42,6 +42,28 @@ WebGL Clustered and Forward+ Shading
 
 In this repo we show forward, forward+ and deferred rendering. The forward+ and deferred shaders include a light culling or binning phase where we first bin lights into AABB's or are often referred to as "clusters" or "tiles". We can then ignore parts of the scene that do not have any. 
 
+Advantages of Deferred vs Forward+
+
+The advantage with the deferred shading technique compared to forward rendering is that the expensive lighting calculations are only computed once per light per covered pixel.
+
+Disadvantages of Deferred vs Forward+
+
+One of the disadvantage of using deferred shading is that only opaque objects can be rasterized into the G-buffers. The reason for this is that multiple transparent objects may cover the same screen pixels but it is only possible to store a single value per pixel in the G-buffers. In the lighting pass the depth value, surface normal, diffuse and specular colors are sampled for the current screen pixel that is being lit. Since only a single value from each G-buffer is sampled, transparent objects cannot be supported in the lighting pass.
+
+Another disadvantage of deferred shading is that only a single lighting model can be simulated in the lighting pass. This is due to the fact that it is only possible to bind a single pixel shader when rendering the light geometry. 
+
+Forward plus is also easier to integrate into existing pipelines that are forward based. This is because forward+ is an extension of forward.
+
+Below is an analysis of the three methods with varying amount of lights. As you will see the Forward render drops off signifcantly while the forward plus slowly dips. Please note I used FPS and is capped at 60 due to not being able to figure out how to uncap the limit.
+
+![](img/numlights.PNG)
+
+
+Below is another graph depicting how varying the amount of lights allowed in a cluster effects the performance. As this increases we see both our deferred and forward+ reduce which is sensical. This experiment was done fixed at 3000 lights and varying the cluster lights.
+
+![](img/maxclusters.PNG) 
+
+
 ## Forward
 
 In its basic form, forward shading is a method of rendering scenes by linearly marching forward along the GPU pipeline. For each mesh and light combination we issue a single draw call additively blending the results until the image has been fully assembled. The pseduo code below helps depict the algorithm at a high level.
@@ -190,6 +212,9 @@ When the number of lights increases > 300. My AABB boxes seem to be appearing ev
 
 
 # Resources
+
+help with making readme
+https://www.3dgep.com/forward-plus/
 
 explanation of forward plus
 https://takahiroharada.files.wordpress.com/2015/04/forward_plus.pdf

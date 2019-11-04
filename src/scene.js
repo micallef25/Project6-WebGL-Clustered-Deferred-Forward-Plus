@@ -9,7 +9,7 @@ export const LIGHT_DT = -0.03;
 
 // TODO: This controls the number of lights
 export const NUM_LIGHTS = 200;
-export var MAX_LIGHTS_PER_CLUSTER =  100;
+export var MAX_LIGHTS_PER_CLUSTER =  250;
 
 class Scene {
   constructor() {
