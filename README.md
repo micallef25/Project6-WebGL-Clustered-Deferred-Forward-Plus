@@ -27,7 +27,7 @@ WebGL Clustered and Forward+ Shading
 
 # Live Online
 
-[![](img/numlights.png)](http://micallef25.github.io/Project6-WebGL-Deferred-Shading)
+![](http://micallef25.github.io/Project6-WebGL-Clustered-Deferred-Forward-Plus) 
 
 # Demo Video
 
@@ -35,7 +35,7 @@ WebGL Clustered and Forward+ Shading
 
 * video shows 200 lights.
 
-[![Watch the video](https://img.youtube.com/vi/8neAfmGIm5U/0.jpg)](https://youtu.be/8neAfmGIm5U)
+[![Watch the video](https://img.youtube.com/vi/8neAfmGIm5U/0.jpg)](https://youtu.be/8neAfmGIm5U) 
 
 
 # Overview
