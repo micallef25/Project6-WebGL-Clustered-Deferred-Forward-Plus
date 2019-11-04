@@ -194,7 +194,7 @@ We can reconstruct the z-value of the normal from its x and y values. The magnit
 
 Packing our buffers using 2 channels as opposed to 4 channels had more of an impact than I anticipated. While there are less main memory reads It is only 2 but I guess this compounds pretty quickly. Below is a graph with my findings. Each run is with 3000 lights and I vary the lights per cluster.
 
-![](img/gbuffers.png)
+![](img/gbuffer.png)
 
 # GUI 
 
