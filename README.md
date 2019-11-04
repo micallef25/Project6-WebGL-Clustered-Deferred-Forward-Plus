@@ -192,6 +192,10 @@ Why this packing?
 
 We can reconstruct the z-value of the normal from its x and y values. The magnitude of a vector is defined as the ```square root of x^2 + y^2 + z^2```. This formula gives us the magnitude of z. The sign of z is positive in camera space. Using this information I was somehow able to recronstruct our scene appropritately without too much pain.
 
+Packing our buffers using 2 channels as opposed to 4 channels had more of an impact than I anticipated. While there are less main memory reads It is only 2 but I guess this compounds pretty quickly. Below is a graph with my findings. Each run is with 3000 lights and I vary the lights per cluster.
+
+![](img/gbufferes.png)
+
 # GUI 
 
 attempts were made at adding num lights and max lights per cluster in the GUI because it was annoying changing them in the code. But things kept breaking and I decided I should just finish the project.
